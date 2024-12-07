@@ -1,6 +1,6 @@
 package com.chloe.wiki.domain;
 
-public class demo {
+public class Demo {
     private Long id;
 
     private String name;
