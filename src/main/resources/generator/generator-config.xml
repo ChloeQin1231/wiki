@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="PostgreSQL" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!-- Automatically check keywords, add double quotes to keywords -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="&quot;"/>
+        <property name="endingDelimiter" value="&quot;"/>
+
+        <!--Overwrite the generated XML file-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!-- Generated entity class adds toString() method -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!-- No comments are generated -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/wiki"
+                        userId="wiki_user"
+                        password="wiki">
+        </jdbcConnection>
+
+        <!-- Location of domain class -->
+        <javaModelGenerator targetProject="src/main/java"
+                            targetPackage="com.chloe.wiki.domain"/>
+
+        <!-- location of mapper xml -->
+        <sqlMapGenerator targetProject="src/main/resources"
+                         targetPackage="mapper"/>
+
+        <!-- location of mapper class -->
+        <javaClientGenerator targetProject="src/main/java"
+                             targetPackage="com.chloe.wiki.mapper"
+                             type="XMLMAPPER"/>
+
+        <!-- Configure the tables to be generated -->
+        <table tableName="demo" domainObjectName="demo"/>
+    </context>
+</generatorConfiguration>
