@@ -18,7 +18,6 @@ public class DemoController {
     private DemoService demoService;
 
     @GetMapping("/list")
-    public List<Demo> list() {
-        return demoService.list();
+    public List<Demo> list() {return demoService.list();
     }
 }
