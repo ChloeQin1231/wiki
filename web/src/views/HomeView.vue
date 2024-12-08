@@ -2,8 +2,6 @@
   <a-layout>
     <a-layout-sider width="200" style="background: #fff">
     <a-menu
-        v-model:selectedKeys="selectedKeys2"
-        v-model:openKeys="openKeys"
         mode="inline"
         :style="{ height: '100%', borderRight: 0 }"
     >
@@ -114,7 +112,7 @@ export default defineComponent({
       then((response) => {
         const data = response.data;
         ebooks.value = data.content;
-        console.log(response);})
+      });
     });
 
     return {
