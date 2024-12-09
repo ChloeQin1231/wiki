@@ -1,11 +1,17 @@
 package com.chloe.wiki.req;
 
-public class EbookReq extends PageReq{
+import jakarta.validation.constraints.NotNull;
+
+public class CategorySaveReq {
     private Long id;
 
+    private Long parent;
+
+    @NotNull(message = "Name cannot be null")
     private String name;
 
-
+    @NotNull(message = "Sort cannot be null")
+    private Integer sort;
 
     public Long getId() {
         return id;
@@ -13,6 +19,14 @@ public class EbookReq extends PageReq{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParent() {
+        return parent;
+    }
+
+    public void setParent(Long parent) {
+        this.parent = parent;
     }
 
     public String getName() {
@@ -23,6 +37,14 @@ public class EbookReq extends PageReq{
         this.name = name;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -30,7 +52,9 @@ public class EbookReq extends PageReq{
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", parent=").append(parent);
         sb.append(", name=").append(name);
+        sb.append(", sort=").append(sort);
         sb.append("]");
         return sb.toString();
     }

@@ -3,6 +3,24 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+      <p>
+        <a-form layout="inline" :model="param">
+          <a-form-item>
+            <a-input v-model:value="param.name" placeholder="name">
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-button type="primary" @click="handleQuery({page: 1, size: pagination.pageSize})">
+              Search
+            </a-button>
+          </a-form-item>
+          <a-form-item>
+            <a-button type="primary" @click="add()">
+              新增
+            </a-button>
+          </a-form-item>
+        </a-form>
+      </p>
       <a-table
           :columns="columns"
           :row-key="record => record.id"
@@ -14,29 +32,67 @@
         <template #cover="{ text: cover }">
           <img v-if="cover" :src="cover" alt="avatar" />
         </template>
+        <template v-slot:category="{ text, record }">
+          <span>{{ getCategoryName(record.category1Id) }} / {{ getCategoryName(record.category2Id) }}</span>
+        </template>
         <template v-slot:action="{ text, record }">
           <a-space size="small">
-            <a-button type="primary">
-              Edit
+            <router-link :to="'/admin/doc?ebookId=' + record.id">
+              <a-button type="primary">
+                文档管理
+              </a-button>
+            </router-link>
+            <a-button type="primary" @click="edit(record)">
+              编辑
             </a-button>
-            <a-button type="danger">
-              Delete
-            </a-button>
-
+            <a-popconfirm
+                title="Are you sure delete this task?"
+                ok-text="Yes"
+                cancel-text="No"
+                @confirm="handleDelete(record.id)"
+            >
+              <a-button type="danger">
+                Delete
+              </a-button>
+            </a-popconfirm>
           </a-space>
         </template>
       </a-table>
     </a-layout-content>
   </a-layout>
+
+  <a-modal
+      title="E-Book Forms"
+      v-model:open="modalVisible"
+      :confirm-loading="modalLoading"
+      @ok="handleModalOk"
+  >
+    <a-form :model="ebook" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
+      <a-form-item label="cover">
+        <a-input v-model:value="ebook.cover" />
+      </a-form-item>
+      <a-form-item label="name">
+        <a-input v-model:value="ebook.name" />
+      </a-form-item>
+      <a-form-item label="category">
+        <a-cascader
+            v-model:value="categoryIds"
+            :field-names="{ label: 'name', value: 'id', children: 'children' }"
+            :options="level1"
+        />
+      </a-form-item>
+      <a-form-item label="description">
+        <a-input v-model:value="ebook.description" type="textarea" />
+      </a-form-item>
+    </a-form>
+  </a-modal>
 </template>
-
-
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { message } from 'ant-design-vue';
-//import {Tool} from "@/util/tool";
+import {Tool} from "@/util/tool";
 
 export default defineComponent({
   name: 'AdminEbook',
@@ -153,7 +209,7 @@ export default defineComponent({
     };
 
     /**
-     * 编辑
+     * Edit
      */
     const edit = (record: any) => {
       modalVisible.value = true;
@@ -169,6 +225,9 @@ export default defineComponent({
       ebook.value = {};
     };
 
+    /**
+     * Delete
+     */
     const handleDelete = (id: number) => {
       axios.delete("/ebook/delete/" + id).then((response) => {
         const data = response.data; // data = commonResp
@@ -254,3 +313,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+img {
+  width: 50px;
+  height: 50px;
+}
+</style>

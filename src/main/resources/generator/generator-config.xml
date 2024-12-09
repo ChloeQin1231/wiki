@@ -42,6 +42,7 @@
 
         <!-- Configure the tables to be generated -->
         <!--<table tableName="demo" domainObjectName="demo"/>-->
-        <table tableName="ebook"/>
+        <!--<table tableName="ebook"/>-->
+        <table tableName="category"/>
     </context>
 </generatorConfiguration>

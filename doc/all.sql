@@ -67,16 +67,23 @@ INSERT INTO ebook (id, name, description) VALUES
 
 
 
+
 -- Drop table category if it exists
 DROP TABLE IF EXISTS category;
 -- Create category table
 CREATE TABLE category (
-                          id BIGINT NOT NULL, -- ID
-                          parent BIGINT NOT NULL DEFAULT 0, -- Parent ID
-                          name VARCHAR(50) NOT NULL, -- Name
-                          sort INT, -- Sort Order
-                          PRIMARY KEY (id)
+    id BIGINT NOT NULL, -- ID
+    parent BIGINT NOT NULL DEFAULT 0, -- Parent ID
+    name VARCHAR(50) NOT NULL, -- Name
+    sort INT, -- Sort Order
+    PRIMARY KEY (id)
 );
+
+comment on table category is 'Categories';
+comment on column category.id is 'ID';
+comment on column category.parent is 'Parent ID';
+comment on column category.name is 'Name';
+comment on column category.sort is 'Sort order';
 
 -- Insert sample data into category
 INSERT INTO category (id, parent, name, sort) VALUES
