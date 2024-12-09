@@ -4,6 +4,7 @@ import com.chloe.wiki.domain.Ebook;
 import com.chloe.wiki.req.EbookReq;
 import com.chloe.wiki.resp.CommonResp;
 import com.chloe.wiki.resp.EbookResp;
+import com.chloe.wiki.resp.PageResp;
 import com.chloe.wiki.service.EbookService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ public class EbookController {
 
     @GetMapping("/list")
     public CommonResp list(EbookReq req) {
-        CommonResp<List<EbookResp>> resp = new CommonResp<>();
-        List<EbookResp> list = ebookService.list(req);
+        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
+        PageResp<EbookResp> list = ebookService.list(req);
         resp.setContent(list);
         return resp;
     }
