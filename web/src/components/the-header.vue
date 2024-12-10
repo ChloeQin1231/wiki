@@ -42,7 +42,7 @@
 
     <a-modal
         title="登录"
-        v-model:visible="loginModalVisible"
+        v-model:open="loginModalVisible"
         :confirm-loading="loginModalLoading"
         @ok="login"
     >
