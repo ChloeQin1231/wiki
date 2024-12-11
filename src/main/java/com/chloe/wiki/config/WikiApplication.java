@@ -7,10 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @ComponentScan("com.chloe")
 @MapperScan("com.chloe.wiki.mapper")
 @SpringBootApplication
+@EnableScheduling
+@EnableAsync
 public class WikiApplication {
     private static final Logger logger = LoggerFactory.getLogger(WikiApplication.class);
     public static void main(String[] args) {

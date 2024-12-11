@@ -116,6 +116,7 @@ import {message, Modal} from 'ant-design-vue';
 import {Tool} from "@/util/tool";
 import {useRoute} from "vue-router";
 import ExclamationCircleOutlined from "@ant-design/icons-vue/ExclamationCircleOutlined";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import E from "wangeditor"
 

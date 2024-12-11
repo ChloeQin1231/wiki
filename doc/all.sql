@@ -117,6 +117,15 @@ CREATE TABLE doc (
                      PRIMARY KEY (id)
 );
 
+comment on table doc is 'Documents';
+comment on column doc.id is 'ID';
+comment on column doc.ebook_id is 'Ebook ID';
+comment on column doc.parent is 'Parent ID';
+comment on column doc.name is 'Name';
+comment on column doc.sort is 'Sort order';
+comment on column doc.view_count is 'View count';
+comment on column doc.vote_count is 'Vote count';
+
 -- Insert sample data into doc
 INSERT INTO doc (id, ebook_id, parent, name, sort, view_count, vote_count) VALUES
                                                                                (1, 1, 0, 'Document 1', 1, 0, 0),
@@ -126,26 +135,39 @@ INSERT INTO doc (id, ebook_id, parent, name, sort, view_count, vote_count) VALUE
                                                                                (5, 1, 3, 'Document 2.2', 2, 0, 0),
                                                                                (6, 1, 5, 'Document 2.2.1', 1, 0, 0);
 
+
 -- Drop table content if it exists
 DROP TABLE IF EXISTS content;
--- Create content table
+-- Create document content table
 CREATE TABLE content (
-                         id BIGINT NOT NULL, -- Document ID
-                         content TEXT NOT NULL, -- Content
-                         PRIMARY KEY (id)
+    id BIGINT NOT NULL, -- Document ID
+    content TEXT NOT NULL, -- Content
+    PRIMARY KEY (id)
 );
+
+comment on table content is 'Document content';
+comment on column content.id is 'Document ID';
+comment on column content.content is 'Content';
+
 
 -- Drop table user if it exists
 DROP TABLE IF EXISTS "user";
 -- Create user table
 CREATE TABLE "user" (
-                        id BIGINT NOT NULL, -- ID
-                        login_name VARCHAR(50) NOT NULL, -- Login Name
-                        name VARCHAR(50), -- Nickname
-                        password CHAR(32) NOT NULL, -- Password
-                        PRIMARY KEY (id),
-                        UNIQUE (login_name)
+    id BIGINT NOT NULL, -- ID
+    login_name VARCHAR(50) NOT NULL, -- Login Name
+    name VARCHAR(50), -- Nickname
+    password CHAR(32) NOT NULL, -- Password
+    PRIMARY KEY (id),
+    UNIQUE (login_name)
 );
+
+-- Add comments
+comment on table "user" is 'User';
+comment on column "user".id is 'ID';
+comment on column "user".login_name is 'Login name';
+comment on column "user".name is 'Nickname';
+comment on column "user".password is 'Password';
 
 -- Insert sample data into user
 INSERT INTO "user" (id, login_name, name, password) VALUES

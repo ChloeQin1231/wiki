@@ -6,43 +6,48 @@
 <generatorConfiguration>
     <context id="PostgreSQL" targetRuntime="MyBatis3" defaultModelType="flat">
 
-        <!-- Automatically check keywords, add double quotes to keywords -->
+        <!-- 自动检查关键字，为关键字增加双引号 -->
         <property name="autoDelimitKeywords" value="true"/>
         <property name="beginningDelimiter" value="&quot;"/>
         <property name="endingDelimiter" value="&quot;"/>
 
-        <!--Overwrite the generated XML file-->
+        <!-- 加载元信息配置 -->
+        <property name="nullCatalogMeansCurrent" value="true"/>
+        <property name="useInformationSchema" value="true"/>
+
+        <!-- 避免覆盖生成的 XML 文件 -->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
-        <!-- Generated entity class adds toString() method -->
+        <!-- 为实体类生成 toString() 方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
-        <!-- No comments are generated -->
+        <!-- 不生成注释 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
+        <!-- 数据库连接信息 -->
         <jdbcConnection driverClass="org.postgresql.Driver"
                         connectionURL="jdbc:postgresql://localhost:5432/wiki"
                         userId="wiki_user"
                         password="wiki">
         </jdbcConnection>
 
-        <!-- Location of domain class -->
+        <!-- domain 类的位置 -->
         <javaModelGenerator targetProject="src/main/java"
                             targetPackage="com.chloe.wiki.domain"/>
 
-        <!-- location of mapper xml -->
+        <!-- mapper XML 文件的位置 -->
         <sqlMapGenerator targetProject="src/main/resources"
                          targetPackage="mapper"/>
 
-        <!-- location of mapper class -->
+        <!-- mapper 接口的位置 -->
         <javaClientGenerator targetProject="src/main/java"
                              targetPackage="com.chloe.wiki.mapper"
                              type="XMLMAPPER"/>
 
-        <!-- Configure the tables to be generated -->
-        <!--<table tableName="demo" domainObjectName="demo"/>-->
-        <!--<table tableName="ebook"/>-->
-        <table tableName="category"/>
+        <!-- config table -->
+        <table tableName="user"/>
+
     </context>
 </generatorConfiguration>
+
